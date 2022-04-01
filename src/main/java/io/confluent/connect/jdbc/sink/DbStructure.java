@@ -15,6 +15,7 @@
 
 package io.confluent.connect.jdbc.sink;
 
+import org.apache.kafka.connect.sink.SinkRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +46,15 @@ public class DbStructure {
     this.tableDefns = new TableDefinitions(dbDialect);
   }
 
+  public boolean createOrAmendIfNecessary (
+    JdbcSinkConfig config,
+    Connection connection,
+    TableId tableId,
+    FieldsMetadata fieldsMetadata,
+    SinkRecord record
+  ) throws SQLException, TableAlterOrCreateException {
+    return createOrAmendIfNecessary(config, connection, tableId, fieldsMetadata);
+  }
   /**
    * Create or amend table.
    *
